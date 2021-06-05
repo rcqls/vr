@@ -11,9 +11,10 @@ fn C.vr_get_ary(cmd &char, typ &int, len &int) voidptr
 fn C.vr_set_ary(name &char, arr voidptr, typ int, len int)
 fn C.vr_as_double_ary(res voidptr) &f64
 fn C.vr_as_int_ary(res voidptr) &int
+fn C.vr_as_bool_ary(res voidptr) &bool
 fn C.vr_as_string_ary(res voidptr) &&char
 
-pub fn begin() {
+fn init() {
 	C.vr_init()
 }
 
@@ -44,6 +45,13 @@ pub fn get(cmd string) Res {
 			ary << unsafe{res[i]}
 		}
 		return ary
+	} else if typ == 2 {
+		res := C.vr_as_bool_ary(arr)
+		mut ary := []bool{}
+		for i in 0..len {
+			ary << unsafe{res[i]}
+		}
+		return ary
 	} else if typ == 3 {
 		res := C.vr_as_string_ary(arr)
 		mut ary := []string{}
@@ -64,6 +72,15 @@ pub fn int(cmd string) []int {
 	}
 }
 
+pub fn bool(cmd string) []bool {
+	res := get(cmd)
+	if res is []bool {
+		return res
+	} else {
+		return []bool{}
+	}
+}
+
 pub fn f64(cmd string) []f64 {
 	res := get(cmd)
 	if res is []f64 {
@@ -80,6 +97,23 @@ pub fn string(cmd string) []string {
 	} else {
 		return []string{}
 	}
+}
+
+pub fn set_f64(name string, arr []f64) {
+	C.vr_set_ary(name.str, arr.data, 0, arr.len)
+}
+
+pub fn set_int(name string, arr []int) {
+	C.vr_set_ary(name.str, arr.data, 1, arr.len)
+}
+
+pub fn set_bool(name string, arr []bool) {
+	C.vr_set_ary(name.str, arr.data, 2, arr.len)
+}
+
+pub fn set_string(name string, arr []string) {
+	res := arr.map(it.str)
+	C.vr_set_ary(name.str, res.data, 3, arr.len)
 }
 
 

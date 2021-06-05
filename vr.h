@@ -56,7 +56,7 @@ int vr_init() //(int argc,char* argv[])
     R_CStackStart = (uintptr_t)-1;
     Rf_initEmbeddedR(4,argv);
     R_Interactive = FALSE;
-    printf("R init\n");
+    // printf("R init\n");
     vr_initialized=1;
     return 1;
   } else return 0;
@@ -190,6 +190,10 @@ double* vr_as_double_ary(void* res) {
 
 int* vr_as_int_ary(void* res) {
    return (int*)res;
+}
+
+bool* vr_as_bool_ary(void* res) {
+   return (bool*)res;
 }
 
 char** vr_as_string_ary(void* res) {
