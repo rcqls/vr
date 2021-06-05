@@ -28,37 +28,38 @@ pub fn run(cmd string) {
 	C.vr_eval(cmd.str, false)
 }
 
-type Res = []f64 | []int | []bool | []string
+type Res = []bool | []f64 | []int | []string
+
 pub fn get(cmd string) Res {
 	typ, len := 0, 0
 	arr := C.vr_get_ary(cmd.str, &typ, &len)
-	println("typ=$typ, len=$len")
+	println('typ=$typ, len=$len')
 	if typ == 0 {
 		res := C.vr_as_double_ary(arr)
 		mut ary := []f64{}
-		for i in 0..len {
-			ary << unsafe{res[i]}
+		for i in 0 .. len {
+			ary << unsafe { res[i] }
 		}
 		return ary
 	} else if typ == 1 {
 		res := C.vr_as_int_ary(arr)
 		mut ary := []int{}
-		for i in 0..len {
-			ary << unsafe{res[i]}
+		for i in 0 .. len {
+			ary << unsafe { res[i] }
 		}
 		return ary
 	} else if typ == 2 {
 		res := C.vr_as_bool_ary(arr)
 		mut ary := []bool{}
-		for i in 0..len {
-			ary << unsafe{res[i]}
+		for i in 0 .. len {
+			ary << unsafe { res[i] }
 		}
 		return ary
 	} else if typ == 3 {
 		res := C.vr_as_string_ary(arr)
 		mut ary := []string{}
-		for i in 0..len {
-			ary << unsafe{cstring_to_vstring(res[i])}
+		for i in 0 .. len {
+			ary << unsafe { cstring_to_vstring(res[i]) }
 		}
 		return ary
 	}
@@ -117,8 +118,3 @@ pub fn set_string(name string, arr []string) {
 	res := arr.map(it.str)
 	C.vr_set_ary(name.str, res.data, 3, arr.len)
 }
-
-
-
-
-
