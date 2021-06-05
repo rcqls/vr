@@ -3,6 +3,8 @@ module vr
 #flag -I $env('RHOME')/include
 #flag -L $env('RHOME')/lib -lR
 #flag darwin $env('RHOME')/lib/libR.dylib
+#flag linux $env('RHOME')/lib/libR.so
+#flag windows $env('RHOME')/lib/libR.dll
 #include "@VMODROOT/vr.h"
 
 fn C.vr_init() int

@@ -1,6 +1,6 @@
 ## v module to play with R
 
-
+(... Only tested on MacOS and Needs to be tested on linux and Windows ...)
 ### settings
 
 After installing `R` (if not already done), assuming  `R` binary in your path, making `vr` module working requires to set first:
