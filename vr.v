@@ -1,11 +1,13 @@
 module vr
+import os
 
-#flag -I $env('RHOME')/include
-#flag -L $env('RHOME')/lib -lR
-#flag darwin $env('RHOME')/lib/libR.dylib
-#flag linux $env('RHOME')/lib/libR.so
-#flag windows $env('RHOME')/lib/libR.dll
+#flag -I $env('R_HOME')/include
+#flag -L $env('R_HOME')/lib -lR
+#flag darwin $env('R_HOME')/lib/libR.dylib
+#flag linux $env('R_HOME')/lib/libR.so
+#flag windows $env('R_HOME')/lib/libR.dll
 #include "@VMODROOT/vr.h"
+
 
 fn C.vr_init() int
 fn C.vr_eval(cmds &char, print int) int
@@ -17,6 +19,7 @@ fn C.vr_as_bool_ary(res voidptr) &bool
 fn C.vr_as_string_ary(res voidptr) &&char
 
 fn init() {
+	println("herre ${os.getenv('RHOME')}")
 	C.vr_init()
 }
 

@@ -48,13 +48,10 @@ static int vr_initialized=0;
 int vr_init() //(int argc,char* argv[])
 {
   if(!vr_initialized) {
-    char* argv[4];
-    argv[0]="REmbed";
-    argv[1]="--save";
-    argv[2]="--slave";
-    argv[3]="--quiet";
-    R_CStackStart = (uintptr_t)-1;
-    Rf_initEmbeddedR(4,argv);
+    char *argv[] = {"REmbedded", "--save" , "--gui=none", "--silent"};
+    int argc = sizeof(argv)/sizeof(argv[0]);
+    // R_CStackStart = (uintptr_t)-1;
+    Rf_initEmbeddedR(argc, argv);
     R_Interactive = FALSE;
     // printf("R init\n");
     vr_initialized=1;

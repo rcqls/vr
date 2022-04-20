@@ -13,7 +13,7 @@ fn main() {
 	s := r.string("paste0('a',1:10)")
 	println(s)
 	// set a as double R vector from f64 array and check inside R
-	r.set_f64('a', [1., 3, 2])
+	r.set_f64('a', [1.0, 3, 2])
 	println(r.f64('a'))
 	// set b as integer R vector from int array and check inside R
 	r.set_int('b', [1, 3, 2])

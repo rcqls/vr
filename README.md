@@ -6,7 +6,7 @@
 After installing `R` (if not already done), assuming  `R` binary in your path, making `vr` module working requires to set first:
 
 ```bash
-export RHOME=`R RHOME`
+export R_HOME=`R RHOME`
 ```
 
 ### install `vr` module
